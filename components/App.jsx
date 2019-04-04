@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ChannelSection from './channels/ChannelSection.jsx';
 import UserSection from './users/UserSection.jsx';
+import MessageSectoion from './messages/MessageSection.jsx';
 
 class App extends Component {
     constructor(props) {
@@ -8,7 +9,8 @@ class App extends Component {
         this.state = {
             channels: [],
             activeChannel: {},
-            users: []
+            users: [],
+            messages: []
         }
     }
 
@@ -24,10 +26,18 @@ class App extends Component {
         this.setState({ activeChannel })
     }
 
-    setUserName(name){
+    setUserName(name) {
         let { users } = this.state;
-        users.push({id: users.length, name});
-        this.setState({users});
+        users.push({ id: users.length, name });
+        this.setState({ users });
+    }
+
+    addMessage(body) {
+        let { messages, users } = this.state;
+        let createdAt = new Date;
+        let author = users.length > 0 ? users[0].name : 'anonymous';
+        messages.push({ id: messages.length, body, createdAt, author });
+        this.setState({ messages });
     }
 
     render() {
@@ -45,6 +55,9 @@ class App extends Component {
                         setUserName={this.setUserName.bind(this)}
                     />
                 </div>
+                <MessageSectoion {...this.state}
+                        addMessage={this.addMessage.bind(this)}
+                    />
             </div>
         )
     }
