@@ -1,13 +1,13 @@
 import {EventEmitter} from 'events';
 
 class Socket {
-    constructor(ws = new WebSocket('wss://echo.websocket.org/'), ee = new EventEmitter()){
+    constructor(ws = new WebSocket(), ee = new EventEmitter()){
         this.ws = ws;
         this.ee = ee;
         ws.onmessage = this.message.bind(this);
         ws.onopen = this.open.bind(this);
         ws.onclose = this.close.bind(this);
-    }
+      }
     on(name, fn){
         this.ee.on(name, fn);
     }

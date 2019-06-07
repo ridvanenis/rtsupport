@@ -59,6 +59,7 @@ class App extends Component {
     }
     onConnect(){
         this.setState({connected: true});
+        this.socket.emit('channel subscribe');
     }
     onDisconnect(){
         this.setState({connected: false});
